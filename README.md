@@ -29,7 +29,7 @@ The database is mapped according to the following schema:
 
 ## Walkthrough Video
 
-Click the following link to view a walkthrough video on the usage of the application: [Walkthrough Video: ORM Ecommerce]()  
+Click the following link to view a walkthrough video on the usage of the application: [Walkthrough Video: ORM Ecommerce](https://drive.google.com/file/d/1_DseCH9clqMir5sheNHi9lN-8v-YQ9bi/view)  
   
 ## Installation 
 
@@ -90,6 +90,7 @@ The animation gif below shows the request responses for `Tag` API routes.
 
 ## Testing 
 No test suites have been written for this application. The API routes were tested locally during development with the [Insomnia](https://docs.insomnia.rest/) development platform.  
+
 Please refer to the [Installation](#installation) section if you are interested in running and testing the application locally.
 
 ## Contributing
