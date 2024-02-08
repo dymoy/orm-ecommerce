@@ -17,6 +17,7 @@ router.get('/', async (req, res) => {
       res.status(404).json({
         message: 'No tags were found'
       });
+      return;
     }
 
     // If tags were found, return status 200 and the tagData 
@@ -43,6 +44,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({
         message: 'No tag was found with the requested id.'
       });
+      return;
     }
 
     res.status(200).json(tagData);
@@ -141,6 +143,7 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({
         message: 'The requested tag id was not found.'
       });
+      return;
     }
     res.status(200).json(tagData);
   } catch (err) {
