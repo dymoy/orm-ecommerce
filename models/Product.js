@@ -1,12 +1,22 @@
-// import important parts of sequelize library
+/**
+ * @file Product.js
+ * Defines the Sequelize model `Product` with the following attributes: 
+ *  - id 
+ *  - product_name
+ *  - price
+ *  - stock
+ *  - category_id (references `Category` model's `id`)
+ */
+
+// Import important parts of sequelize library
 const { Model, DataTypes } = require('sequelize');
-// import our database connection from config.js
+// Import our database connection from config.js
 const sequelize = require('../config/connection');
 
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {}
 
-// set up fields and rules for Product model
+// Set up fields and rules for Product model
 Product.init(
   {
     id: {
