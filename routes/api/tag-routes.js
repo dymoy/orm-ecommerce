@@ -2,6 +2,7 @@
  * @file tag-routes.js
  * Implements the API routes for the `Tag` model using endpoint '/api/tags'
  */
+
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 

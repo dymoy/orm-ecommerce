@@ -1,7 +1,7 @@
 {
-  "name": "module-13-challenge-orm",
+  "name": "orm-ecommerce",
   "version": "1.0.0",
-  "description": "",
+  "description": "Building the back end functionality of an e-commerce website using Express.js API and Sequelize to interact with a MySQL database.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +11,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@work.github.com:coding-boot-camp/module-13-challenge-orm.git"
+    "url": "git@github.com:dymoy/orm-ecommerce.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Derek Moy <derekymoy@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.3"
