@@ -1,3 +1,10 @@
+/**
+ * @file Category.js
+ * Defines the Sequelize model `Category` with the following attributes: 
+ *  - id 
+ *  - category_name 
+ */
+
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');

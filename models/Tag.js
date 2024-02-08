@@ -1,3 +1,10 @@
+/**
+ * @file Tag.js
+ * Defines the Sequelize model `Tag` with the following attributes: 
+ *  - id 
+ *  - tag_name
+ */
+
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');

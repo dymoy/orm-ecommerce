@@ -1,3 +1,11 @@
+/**
+ * @file ProductTag.js
+ * Defines the Sequelize model `ProductTag` with following attributes: 
+ *  - id 
+ *  - product_id (references `Product` model's `id`)
+ *  - tag_id (references `Tag` model's `id`)
+ */
+
 const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection');
