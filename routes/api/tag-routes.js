@@ -1,18 +1,20 @@
+/**
+ * @file tag-routes.js
+ * Implements the API routes for the `Tag` model using endpoint '/api/tags'
+ */
 const router = require('express').Router();
 const { Tag, Product, ProductTag } = require('../../models');
 
-// The `/api/tags` endpoint
-
-// Find all tags, including its associated Product data
+/**
+ * @route GET '/api/tags/'
+ * Finds and returns all tags, including its associated `Product` data 
+ */
 router.get('/', async (req, res) => {
   try {
-    // Use .findAll() Model method to get all tags
     const tagData = await Tag.findAll({
-      // Use the 'include' attribute to get associated Product data 
       include: [{model: Product}]
     });
 
-    // Return status 404 if no tag data was found 
     if (!tagData) {
       res.status(404).json({
         message: 'No tags were found'
@@ -20,22 +22,21 @@ router.get('/', async (req, res) => {
       return;
     }
 
-    // If tags were found, return status 200 and the tagData 
     res.status(200).json(tagData);
   } catch (err) {
-    // Return any other errors with status code 500
     res.status(500).json(err);
   }
 });
 
-// Find a single tag by its `id`, incuding its associated Product data 
+/**
+ * @route GET '/api/tags/:id'
+ * Find and return a single tag by its `id`, including its associated `Product` data
+ */
 router.get('/:id', async (req, res) => {
   try {
-    // Use .findByPk() Model method to get the tag using the id in the request params
     const tagData = await Tag.findByPk(
       req.params.id,
       {
-        // Use the 'include' attribute to get associated Product data 
         include: [{ model: Product }]
       }
     );
@@ -53,15 +54,21 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create a new tag 
+/**
+ * @route POST '/api/tags/'
+ * Creates a new `Tag` instance with req.body: 
+ *    {
+ *      "tag_name": STRING,
+ *      "product_ids": ARRAY 
+ *    }
+ */
 router.post('/', async (req, res) => {
   try { 
-    // Use the .create() method from Tag Model to create the tag instance 
     await Tag.create({
       tag_name: req.body.tag_name,
       product_ids: req.body.product_ids
     }).then((tag) => {
-      // If there are product ids, create pairings to bulkCreate in the ProductTag Model
+      // If there are product tags, create pairings to bulkCreate in the `ProductTag` model
       if (req.body.product_ids.length) {
         const productTagIdArr = req.body.product_ids.map((product_id) => {
           return {
@@ -71,7 +78,7 @@ router.post('/', async (req, res) => {
         });
         return ProductTag.bulkCreate(productTagIdArr);
       }
-      // If there are no product ids, respond with the created tag 
+      // If there are no product tags, respond with the created tag 
       res.status(200).json(tag);
     }).then((productTagIds) => {
       res.status(200).json(productTagIds);
@@ -81,18 +88,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Update a tag's name by its `id` value
+/**
+ * @route PUT '/api/tags/:id'
+ * Update a `Tag` by its `id` value
+ */
 router.put('/:id', async (req, res) => {
-  // Use the .update() method in Tag Model 
   try {
     await Tag.update(req.body, {
       where: {
         id: req.params.id
       }
     }).then((tag) => {
-      // If there are product ids provided in the req.body, update the products as well in ProductTag Model
       if (req.body.product_ids && req.body.product_ids.length) {
-        // Find all productTag pairings with the tag_id we're updating 
         ProductTag.findAll({
           where: {tag_id: req.params.id}
         }).then((productTags) => {
@@ -108,11 +115,12 @@ router.put('/:id', async (req, res) => {
             }
           });
           
-          // Remove any productTags that are not included in the req.body
+          // Find any productTags that are not included in the req.body
           const productTagsToRemove = productTags
           .filter(({product_id}) => !req.body.product_ids.includes(product_id))
           .map(({id}) => id);
   
+          // Run both actions
           return Promise.all([
             ProductTag.destroy({
               where: {
@@ -130,7 +138,10 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete a Tag by its `id` value
+/**
+ * @route DELETE '/api/tags/:id'
+ * Delete a `Tag` by its `id` value
+ */
 router.delete('/:id', async (req, res) => {
   try {
     const tagData = await Tag.destroy({
